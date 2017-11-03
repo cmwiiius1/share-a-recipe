@@ -1,0 +1,49 @@
+
+
+GOOGLE_CLIENT_ID=33201608388-tklmj05btv6mks2doca27rdn227hh63v.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=rt67OWNsceA87LDG2L4_fBzs
+
+Consider the following example for a simple chat app. The first rule restricts access to a specific user for that user's specific data. The second rule allows access to all messages in a chat room for all users.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth.uid == userId;
+    }
+    match /rooms/{roomId} {
+      match /messages/{messageId} {
+        allow read, write: if request.auth != null;
+
+
+
+TEXTAREA:
+
+C:\RUBootCamp\Copy Class Repository\Solved_20_book_Router\Solved\client\src\components\Form\index.js:
+    1  export * from "./Input";
+    2: export * from "./TextArea";
+    3  export * from "./FormBtn";
+    4  
+
+C:\RUBootCamp\Copy Class Repository\Solved_20_book_Router\Solved\client\src\components\Form\TextArea.js:
+    1  import React from "react";
+    2  
+    3: export const TextArea = props =>
+    4    <div className="form-group">
+    5:     <textarea className="form-control" rows="20" {...props} />
+    6    </div>;
+    7  
+
+C:\RUBootCamp\Copy Class Repository\Solved_20_book_Router\Solved\client\src\pages\Books\Books.js:
+    6  import { Col, Row, Container } from "../../components/Grid";
+    7  import { List, ListItem } from "../../components/List";
+    8: import { Input, TextArea, FormBtn } from "../../components/Form";
+    9  
+   10  class Books extends Component {
+   ..
+   75                  placeholder="Author (required)"
+   76                />
+   77:               <TextArea
+   78                  value={this.state.synopsis}
+   79                  onChange={this.handleInputChange}
+
+5 matches across 3 files
