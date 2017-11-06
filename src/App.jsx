@@ -6,6 +6,7 @@ import LoginForm from './components/Login/LoginForm'
 import SignupForm from './components/SignupForm'
 import Header from './components/Header'
 import Home from './components/Home'
+import Saved from './allrecipes'
 
 const DisplayLinks = props => {
 	if (props.loggedIn) {
@@ -13,8 +14,13 @@ const DisplayLinks = props => {
 			<nav className="navbar">
 				<ul className="nav">
 					<li className="nav-item">
+						<Link to="/allrecipes" className="nav-link">
+							All Recipes
+						</Link>
+					</li>
+					<li className="nav-item">
 						<Link to="/" className="nav-link">
-							Home
+							Your Recipes
 						</Link>
 					</li>
 					<li>
@@ -109,7 +115,7 @@ class App extends Component {
 		return (
 			<div className="App">
 			<header>
-            <div className="wrapper">
+            <div className="wrapper" text= "align left">
               <h1>Share a Recipe 1...2...3</h1>            
             </div>
        	    </header>
@@ -129,6 +135,7 @@ class App extends Component {
 						/>}
 				/>
 				<Route exact path="/signup" component={SignupForm} />
+				<Route exact path="/allrecipes" component={Saved} />
 				{/* <LoginForm _login={this._login} /> */}
 			</div>
 		)

@@ -18,7 +18,7 @@ const userSchema = new Schema({
 	recipes: [
 	{
 		type: Schema.Types.ObjectId,
-		ref: "recipes" 
+		ref: "Recipe" 
 	}
 	]
 	// local: {

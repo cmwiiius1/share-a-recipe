@@ -15,7 +15,7 @@ header p {
 }
 header .wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* switched from default (flex-start, see below) */
 }
 
 header h1 {

@@ -34,7 +34,7 @@ const helpers = {
   },
   // This will return any saved articles from our database
   getSaved: function() {
-    return axios.get("/api/saved")
+    return axios.get("/api/recipe")
       .then(function(results) {
         console.log("axios results", results);
         return results;
@@ -44,7 +44,12 @@ const helpers = {
  postSaved: function(title, body) {
     var newRecipe = { title: title, body: body };
     console.log('postSaved', title)
-    return axios.post("/api/saved", newRecipe)
+    return axios.post("/api/saved", newRecipe);
+  },
+  populateduser: function(title, body) {
+    var recipe = { title: title, body: body };
+    console.log('populateduser', title)
+    return axios.post("/populateduser", recipe)
       .then(function(response) {
         console.log("axios results", response.data._id);
         // return response.data._id;
