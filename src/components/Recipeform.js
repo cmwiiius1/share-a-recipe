@@ -17,6 +17,7 @@ class Recipe extends Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     // this.getUserRecipes = this.getUserRecipes.bind(this);
   }
 
@@ -28,7 +29,7 @@ class Recipe extends Component {
                       <li key={item._id}>
                         <h3 className = "title">{item.title}</h3>
                         <p>
-                          <button onClick={() => this.removeItem(item._id)}>Remove Recipe</button>
+                          <button onClick={() => this.handleDelete(item._id)}>Remove Recipe</button>
                         </p>
                         <h3>{item.body}</h3>
                       </li>
@@ -54,14 +55,19 @@ class Recipe extends Component {
        });
     })
   }
+  handleDelete(id) {
+    helpers.deleteSaved(id)
+    .then(res => this.renderRecipies())
+    .catch(err => console.log ("handle delete err", err));
+  };
   render() {
     return (
       <div className='app'>
         <div className='container'>
-          <section className='add-item'>
+          <section className='add-item' style={{width:1000}}>
                 <form onSubmit={this.handleSubmit}>
                   <input type="text" name="recipeName" placeholder="Recipe name" onChange={this.handleChange} value={this.state.recipeName} />
-                  <textarea type="text" width="20" rows="20" name="ingredients" placeholder="Type/Paste recipe here" onChange={this.handleChange} value={this.state.ingredients} />
+                  <textarea className='box' type="text" rows="20" name="ingredients" placeholder="Type/Paste recipe here" onChange={this.handleChange} value={this.state.ingredients} />
                   <button>Add Recipe</button>
                 </form>
 

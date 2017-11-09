@@ -154,6 +154,13 @@ form button {
   margin-top: 10px;
 }
 
+.box {
+  width: 100%;
+  margin-right: 10px;
+  color: yellow;
+
+}
+
 button {
   border-radius: 2px;
   min-width: 88px;

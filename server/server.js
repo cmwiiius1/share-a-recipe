@@ -130,7 +130,14 @@ app.post("/api/saved", function(req, res) {
         }
       });
     });
-
+  app.delete("delete-recipe/:id", (req, res) => {
+    console.log("inside delete recipe")
+  db.Recipe
+    .findById({ _id: req.params.id })
+    .then(dbModel => dbModel.remove())
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+});
 // temp===========
 // ==== Starting Server =====
 app.listen(PORT, () => {

@@ -50,18 +50,8 @@ const helpers = {
     return axios.get("/populateduser");
   },
   // This will remove saved articles from our database
-  deleteSaved: function(title, data, url) {
-    return axios.delete("/api/saved", {
-      params: {
-        "title": title,
-        "data": data,
-        "url": url
-      }
-    })
-    .then(function(results) {
-      console.log("axios results", results);
-      return results;
-    });
+  deleteSaved: function(id) {
+    return axios.delete("/delete-recipe/" + id)
   }
 };
 
