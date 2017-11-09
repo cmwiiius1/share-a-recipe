@@ -46,14 +46,8 @@ const helpers = {
     console.log('postSaved', title)
     return axios.post("/api/saved", newRecipe);
   },
-  populateduser: function(title, body) {
-    var recipe = { title: title, body: body };
-    console.log('populateduser', title)
-    return axios.post("/populateduser", recipe)
-      .then(function(response) {
-        console.log("axios results", response.data._id);
-        // return response.data._id;
-      });
+  populateduser: function() {
+    return axios.get("/populateduser");
   },
   // This will remove saved articles from our database
   deleteSaved: function(title, data, url) {

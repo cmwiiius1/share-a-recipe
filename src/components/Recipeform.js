@@ -7,8 +7,8 @@ import helpers from '../utils/helpers.js';
 // import firebase from './firebase.js';
 
 class Recipe extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       recipeName: '',
       ingredients:'',
@@ -17,20 +17,26 @@ class Recipe extends Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.getUserRecipes = this.getUserRecipes.bind(this);
+    // this.getUserRecipes = this.getUserRecipes.bind(this);
   }
 
-  getUserRecipes() {
-    console.log("got to getUserRecipes")
-    console.log('state: ',this.state.items)
-    if(this.state.items.length > 0) return;
-    console.log('below return');
-      helpers.postSaved(this.state.recipeName, this.state.ingredients).then((res) => {
-        console.log ("recipe posted");
-        console.log(res);
-        this.setState({items: res.data.recipes});
-    })
-  }
+  renderRecipies = ()=> {
+    if (!this.props.userRecipies) return <div>Loading Recipes</div>;
+    return (
+        this.props.userRecipies.map(item => {
+                    return (
+                      <li key={item._id}>
+                        <h3 className = "title">{item.title}</h3>
+                        <p>
+                          <button onClick={() => this.removeItem(item._id)}>Remove Recipe</button>
+                        </p>
+                        <h3>{item.body}</h3>
+                      </li>
+                    )
+                  })
+      )
+  }  
+  
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -39,8 +45,8 @@ class Recipe extends Component {
   handleSubmit(e) {
     e.preventDefault();
     helpers.postSaved(this.state.recipeName, this.state.ingredients).then((res) => {
-      console.log ("recipe posted");
-      console.log(res);
+      // console.log ("recipe posted");
+      // console.log(res);
       this.setState({
         recipeName: '',
         ingredients: '',
@@ -54,28 +60,18 @@ class Recipe extends Component {
         <div className='container'>
           <section className='add-item'>
                 <form onSubmit={this.handleSubmit}>
-                  <input type="text" name="recipeName" placeholder="What is the name of your recipe?" onChange={this.handleChange} value={this.state.recipeName} />
-                  <textarea type="text" rows="20" name="ingredients" placeholder="Type or paste the recipe here." onChange={this.handleChange} value={this.state.ingredients} />
+                  <input type="text" name="recipeName" placeholder="Recipe name" onChange={this.handleChange} value={this.state.recipeName} />
+                  <textarea type="text" width="20" rows="20" name="ingredients" placeholder="Type/Paste recipe here" onChange={this.handleChange} value={this.state.ingredients} />
                   <button>Add Recipe</button>
                 </form>
+
+                
           </section>
          {/* } <AllRecipes /> */}
          <section className='display-recipes'>
-              <div className="wrapper">
+              <div className="wrapper1">
                 <ul>
-                  {/*this.state.items.map((item) => {
-                    return (
-                      <li key={item.id}>
-                        <h3>{item.title}</h3>
-                        <p>Submitted by: {item.user}
-                          <button onClick={() => this.removeItem(item.id)}>Remove Recipe</button>
-                        </p>
-                        <h3>{item.recipe}</h3>
-                      </li>
-                    )
-                  })*/
-                  this.getUserRecipes()
-                }
+                  {this.renderRecipies()}
                 </ul>
               </div>
           </section>

@@ -23,9 +23,7 @@ router.get('/user', (req, res, next) => {
 	}
 })
 
-router.post(
-	'/login',
-	function(req, res, next) {
+router.post('/login',function(req, res, next) {
 		console.log(req.body)
 		console.log('================')
 		next()

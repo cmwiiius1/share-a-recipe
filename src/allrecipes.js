@@ -4,6 +4,8 @@ import React, { Component } from 'react'
 // Include the Helper (for the saved recall)
 import helpers from "./utils/helpers";
 
+import RecipeList from './components/RecipeList';
+
 // Create the Main component
 class Saved extends Component {
   state = {
@@ -52,21 +54,7 @@ class Saved extends Component {
     return this.state.savedRecipes.map((recipe, index) => {
 
       return (
-        <div key={index}>
-          <li className="list-group-item">
-            <h3>
-              <span>
-                <em>{recipe.title}</em>
-              </span>
-              <span className="btn-group pull-right">
-                <a href={recipe.url} rel="noopener noreferrer" target="_blank">
-                  <button className="btn btn-default ">View Recipe</button>
-                </a>
-                <button className="btn btn-primary" onClick={() => this.handleClick(recipe)}>Delete</button>
-              </span>
-            </h3>
-          </li>
-        </div>
+        <RecipeList recipe={recipe} key={index} />
       );
     });
   }

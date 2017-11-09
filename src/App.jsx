@@ -6,7 +6,8 @@ import LoginForm from './components/Login/LoginForm'
 import SignupForm from './components/SignupForm'
 import Header from './components/Header'
 import Home from './components/Home'
-import Saved from './allrecipes'
+import Saved from './allrecipes';
+import helpers from './utils/helpers';
 
 const DisplayLinks = props => {
 	if (props.loggedIn) {
@@ -56,16 +57,16 @@ class App extends Component {
 		super()
 		this.state = {
 			loggedIn: false,
-			user: null
+			user: null,
+			userRecipies: null
 		}
 		this._logout = this._logout.bind(this)
 		this._login = this._login.bind(this)
 	}
 	componentDidMount() {
 		axios.get('/auth/user').then(response => {
-			console.log(response.data)
+			// console.log(response.data)
 			if (!!response.data.user) {
-				console.log('THERE IS A USER')
 				this.setState({
 					loggedIn: true,
 					user: response.data.user
@@ -77,6 +78,13 @@ class App extends Component {
 				})
 			}
 		})
+
+		helpers.populateduser()
+	        .then((res) => {
+	        	const {recipes} = res.data;
+	        	// console.log('inside of app: ',recipes)
+	        	this.setState({userRecipies: recipes});
+	          });
 	}
 
 	_logout(event) {
@@ -115,7 +123,7 @@ class App extends Component {
 		return (
 			<div className="App">
 			<header>
-            <div className="wrapper" text= "align left">
+            <div className="wrapper" style= {{textAlign: "align-left"}}>
               <h1>Share a Recipe 1...2...3</h1>            
             </div>
        	    </header>
@@ -124,7 +132,7 @@ class App extends Component {
 				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
 				{/*  ROUTES */}
 				{/* <Route exact path="/" component={Home} /> */}
-				<Route exact path="/" render={() => <Home user={this.state.user} />} />
+				<Route exact path="/" render={() => <Home user={this.state.user} userRecipies={this.state.userRecipies} />} />
 				<Route
 					exact
 					path="/login"
